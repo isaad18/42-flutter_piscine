@@ -146,13 +146,13 @@
       "languageVersion": "2.14"
     },
     {
-      "name": "simple_mobile",
+      "name": "ex01",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-07-12T06:32:52.942082Z",
+  "generated": "2023-07-13T05:50:07.797905Z",
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }
