@@ -3,26 +3,29 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(MaterialApp(
     home: Scaffold(
-      body: const Center(
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 150.0, right: 30.0),
-          child: Text(
-              'text',
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text(
+              'A simple text',
               style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 22, 17, 28),
+                fontSize: 30,
                 fontFamily: 'Roboto',
-              )
+                fontWeight: FontWeight.bold,
+                backgroundColor: Colors.deepPurple,
+                color: Color.fromARGB(255, 22, 17, 28),
+              ),
             ),
-        )
-      ),
-      floatingActionButton: Center(
-        child: FloatingActionButton(
-          onPressed: () { print('Clicked me hehe'); },
-          child: const Text('Click'),
+            FloatingActionButton(
+              onPressed: () { print('Clicked me hehe'); },
+              backgroundColor: Colors.orangeAccent,
+              child: const Text('click me'),
+            ),
+          ],
         ),
-      )
-    )
+      ),
+    ),
   ));
 }

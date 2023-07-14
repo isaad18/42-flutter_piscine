@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
@@ -5,7 +8,7 @@ import 'package:math_expressions/math_expressions.dart';
 
 
 String input = '0';
-String output = '0';
+String output = '0.0';
 typedef MyFunction = void Function(String);
 
 void main() {
@@ -32,7 +35,7 @@ class _MyAppState extends State<MyApp> {
         }
       } else if (text == '=') {
         output = input;
-      } else if (input == '0' || input == '00') {
+      } else if ((input == '0' || input == '00' || input == '0.0' || input == '0.') && text != '') {
         input = text;
       } else {
         input += text;
@@ -45,7 +48,7 @@ class _MyAppState extends State<MyApp> {
         output = result.toString();
         if (text == '=') {
           input = output;
-          output = '0';
+          output = '0.0';
         }
         print(result);
       } catch (e) {
@@ -104,6 +107,8 @@ class _MyAppState extends State<MyApp> {
         Row(
           children: [
             Expanded(
+              child: Container(
+                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -114,6 +119,7 @@ class _MyAppState extends State<MyApp> {
                   Expanded( child: CustomButton('AC', changeInput) ),
                 ],
               ),
+              )
             ),
           ],
         ),
@@ -190,7 +196,9 @@ class _CustomButton extends State<CustomButton> {
   _CustomButton( String text, MyFunction test ): this.text = text, changeInput = test;
 
   @override
-  Widget build(BuildContext context) => ElevatedButton(
+  Widget build(BuildContext context) => Container(
+    height: 50,
+    child: ElevatedButton(
     style: ButtonStyle(
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
@@ -199,5 +207,5 @@ class _CustomButton extends State<CustomButton> {
     ),
     onPressed: () {changeInput(text);},
     child: Text(text),
-  );
+  ));
 }

@@ -1,0 +1,4 @@
+#Fri Jul 14 22:44:52 GST 2023
+base.0=/Users/isaad/Desktop/42-flutter_piscine/00/ex00/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
