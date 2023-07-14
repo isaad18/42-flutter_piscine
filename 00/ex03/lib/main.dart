@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
+
+
+
 
 String input = '0';
 String output = '0';
@@ -33,8 +37,23 @@ class _MyAppState extends State<MyApp> {
       } else {
         input += text;
       }
+      try {
+        Parser parser = Parser();
+        Expression expression = parser.parse(input.replaceAll('x', '*'));
+        ContextModel contextModel = ContextModel();
+        double result = expression.evaluate(EvaluationType.REAL, contextModel);
+        output = result.toString();
+        if (text == '=') {
+          input = output;
+          output = '0';
+        }
+        print(result);
+      } catch (e) {
+        print('err');
+      }
+
     });
-    print(text);
+    // print(text);
   }
 
   @override
