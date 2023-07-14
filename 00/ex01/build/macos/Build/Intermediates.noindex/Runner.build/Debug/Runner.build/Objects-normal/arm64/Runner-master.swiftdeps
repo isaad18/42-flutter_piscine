@@ -1,8 +1,8 @@
 version: "Apple Swift version 5.8.1 (swiftlang-5.8.0.124.5 clang-1403.0.22.11.100)"
 options: "6018b856c83e9441dbeb6b92afbfe6422537f02ed8671be1e5348596aab4ae26"
-build_start_time: [1689227483, 197520000]
-build_end_time: [1689227488, 94168000]
+build_start_time: [1689228050, 997760000]
+build_end_time: [1689228052, 530812000]
 inputs:
-  "/Users/isaad/Desktop/42-flutter_piscine/00/ex01/macos/Flutter/GeneratedPluginRegistrant.swift": [1689227473, 623903745]
+  "/Users/isaad/Desktop/42-flutter_piscine/00/ex01/macos/Flutter/GeneratedPluginRegistrant.swift": [1689228046, 601228346]
   "/Users/isaad/Desktop/42-flutter_piscine/00/ex01/macos/Runner/AppDelegate.swift": [1686756961, 0]
   "/Users/isaad/Desktop/42-flutter_piscine/00/ex01/macos/Runner/MainFlutterWindow.swift": [1686756961, 0]

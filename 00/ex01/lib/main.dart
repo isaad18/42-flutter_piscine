@@ -14,6 +14,7 @@ class _Home extends State<Home> {
   void changeClick() {
     setState(() {
       text = text == 'Click' ? 'Clicked' : 'Click';
+      print('Clicked me hehe');
     });
   }
 
