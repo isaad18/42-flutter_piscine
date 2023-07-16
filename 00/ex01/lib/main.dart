@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 String text = 'A simple text';
 
-void main() => runApp(MaterialApp( home: Home() ));
+void main() => runApp(const MaterialApp( home: Home() ));
 
 class Home extends StatefulWidget {
+  const Home({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _Home createState() => _Home();
 }
 

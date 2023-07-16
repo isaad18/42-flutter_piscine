@@ -12,6 +12,7 @@ class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
   
   @override
+  // ignore: library_private_types_in_public_api
   _MyAppState createState() => _MyAppState();
 }
 
@@ -124,7 +125,7 @@ class _MyAppState extends State<MyApp> {
               ),
             ],
           ),
-          backgroundColor: Color.fromARGB(255, 22, 29, 36),
+          backgroundColor: const Color.fromARGB(255, 22, 29, 36),
         ),
       );
 }
@@ -132,20 +133,21 @@ class _MyAppState extends State<MyApp> {
 class CustomButton extends StatefulWidget {
   final String text;
   final MyFunction test;
-  CustomButton( String text, MyFunction test ): this.text = text, this.test = test;
+  const CustomButton( this.text, this.test, {super.key} );
 
   @override
-  _CustomButton createState() => _CustomButton(this.text, this.test);
+  // ignore: library_private_types_in_public_api, no_logic_in_create_state
+  _CustomButton createState() => _CustomButton(text, test);
 }
 
 class _CustomButton extends State<CustomButton> {
 
   final String text;
   final MyFunction changeInput;
-  _CustomButton( String text, MyFunction test ): this.text = text, changeInput = test;
+  _CustomButton( this.text, MyFunction test ): changeInput = test;
 
   @override
-  Widget build(BuildContext context) => Container(
+  Widget build(BuildContext context) => SizedBox(
     height: 50,
     child: ElevatedButton(
       style: ButtonStyle(

@@ -1,11 +1,10 @@
-import 'dart:math';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 
-
+Color bgButtons = const Color.fromARGB(255, 10, 44, 56);
+Color bgGeneral = const Color.fromARGB(255, 22, 29, 36);
 
 String input = '0';
 String output = '0.0';
@@ -19,6 +18,7 @@ class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
   
   @override
+  // ignore: library_private_types_in_public_api
   _MyAppState createState() => _MyAppState();
 }
 
@@ -50,13 +50,31 @@ class _MyAppState extends State<MyApp> {
           input = output;
           output = '0.0';
         }
-        print(result);
       } catch (e) {
-        print('err');
+        if (kDebugMode) {
+          print('err');
+        }
       }
 
     });
-    // print(text);
+    if (kDebugMode) {
+      print(text);
+    }
+  }
+
+  void changeColor(String text) {
+    setState(() {
+      if (bgGeneral == const Color.fromARGB(255, 255, 255, 255)) {
+        bgButtons = const Color.fromARGB(255, 10, 44, 56);
+        bgGeneral = const Color.fromARGB(255, 22, 29, 36);
+      } else {
+        bgButtons = const Color.fromARGB(255, 113, 118, 122);
+        bgGeneral = const Color.fromARGB(255, 255, 255, 255);
+      }
+    });
+    if (kDebugMode) {
+      print(text);
+    }
   }
 
   @override
@@ -66,7 +84,7 @@ class _MyAppState extends State<MyApp> {
       title: const Center(
         child: Text('Calculator'),
       ),
-      backgroundColor: const Color.fromARGB(255, 10, 44, 56),
+      backgroundColor: bgButtons,
     ),
     body: Column(
       mainAxisAlignment: MainAxisAlignment.end,
@@ -77,11 +95,13 @@ class _MyAppState extends State<MyApp> {
             Expanded(
               child: Text(
                 input,
+                maxLines: 1,
                 textAlign: TextAlign.right,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: bgGeneral == const Color.fromARGB(255, 255, 255, 255) ? Colors.black : Colors.white,
                   fontSize: 50,
                 ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
@@ -94,9 +114,10 @@ class _MyAppState extends State<MyApp> {
               Expanded(
                 child: Text(
                   output,
+                  maxLines: 1,
                   textAlign: TextAlign.right,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: bgGeneral == const Color.fromARGB(255, 255, 255, 255) ? Colors.black : Colors.white,
                     fontSize: 50,
                   ),
                 ),
@@ -108,17 +129,17 @@ class _MyAppState extends State<MyApp> {
           children: [
             Expanded(
               child: Container(
-                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded( child: CustomButton('7', changeInput) ),
-                  Expanded( child: CustomButton('8', changeInput) ),
-                  Expanded( child: CustomButton('9', changeInput) ),
-                  Expanded( child: CustomButton('C', changeInput) ),
-                  Expanded( child: CustomButton('AC', changeInput) ),
-                ],
-              ),
+                margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Expanded( child: CustomButton('7', changeInput) ),
+                    Expanded( child: CustomButton('8', changeInput) ),
+                    Expanded( child: CustomButton('9', changeInput) ),
+                    Expanded( child: CustomButton('C', changeInput) ),
+                    Expanded( child: CustomButton('AC', changeInput) ),
+                  ],
+                ),
               )
             ),
           ],
@@ -165,7 +186,7 @@ class _MyAppState extends State<MyApp> {
                   Expanded( child: CustomButton('.', changeInput) ),
                   Expanded( child: CustomButton('00', changeInput) ),
                   Expanded( child: CustomButton('=', changeInput) ),
-                  Expanded( child: CustomButton('', changeInput) ),
+                  Expanded( child: CustomButton('BG', changeColor) ),
                 ],
               ),
             ),
@@ -173,7 +194,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
     ),
-    backgroundColor: Color.fromARGB(255, 22, 29, 36),
+    backgroundColor: bgGeneral,
   ),
 );
 
@@ -183,29 +204,35 @@ class _MyAppState extends State<MyApp> {
 class CustomButton extends StatefulWidget {
   final String text;
   final MyFunction test;
-  CustomButton( String text, MyFunction test ): this.text = text, this.test = test;
+  const CustomButton( this.text, this.test, {super.key} );
 
   @override
-  _CustomButton createState() => _CustomButton(this.text, this.test);
+  // ignore: library_private_types_in_public_api, no_logic_in_create_state
+  _CustomButton createState() => _CustomButton(text, test);
 }
 
 class _CustomButton extends State<CustomButton> {
 
   final String text;
   final MyFunction changeInput;
-  _CustomButton( String text, MyFunction test ): this.text = text, changeInput = test;
+  _CustomButton( this.text, MyFunction test ): changeInput = test;
 
   @override
-  Widget build(BuildContext context) => Container(
+  Widget build(BuildContext context) => SizedBox(
     height: 50,
     child: ElevatedButton(
     style: ButtonStyle(
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
       ),
-      backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 10, 44, 56)),
+      backgroundColor: MaterialStateProperty.all<Color>(bgButtons),
     ),
     onPressed: () {changeInput(text);},
-    child: Text(text),
+    child: Text(
+      text,
+      style: const TextStyle(
+        color: Colors.white,
+      ),
+    ),
   ));
 }

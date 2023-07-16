@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,7 +20,11 @@ void main() {
               ),
             ),
             FloatingActionButton(
-              onPressed: () { print('Clicked me hehe'); },
+              onPressed: () {
+                if (kDebugMode) {
+                  print('Clicked me hehe');
+                }
+              },
               backgroundColor: Colors.orangeAccent,
               child: const Text('click me'),
             ),
