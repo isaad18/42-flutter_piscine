@@ -19,7 +19,7 @@ class _MyAppState extends State<MyApp> {
 
   void changeInput(String text) {
     setState(() {
-      input += text;
+      input = text;
     });
     print(text);
   }
@@ -145,14 +145,17 @@ class _CustomButton extends State<CustomButton> {
   _CustomButton( String text, MyFunction test ): this.text = text, changeInput = test;
 
   @override
-  Widget build(BuildContext context) => ElevatedButton(
-    style: ButtonStyle(
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
+  Widget build(BuildContext context) => Container(
+    height: 50,
+    child: ElevatedButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
+        ),
+        backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 10, 44, 56)),
       ),
-      backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 10, 44, 56)),
-    ),
-    onPressed: () {changeInput(text);},
-    child: Text(text),
+      onPressed: () {changeInput(text);},
+      child: Text(text),
+    )
   );
 }
