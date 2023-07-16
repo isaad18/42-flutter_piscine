@@ -93,15 +93,19 @@ class _MyAppState extends State<MyApp> {
         Row(
           children: [
             Expanded(
-              child: Text(
-                input,
-                maxLines: 1,
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                  color: bgGeneral == const Color.fromARGB(255, 255, 255, 255) ? Colors.black : Colors.white,
-                  fontSize: 50,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                reverse: true,
+                child: Text(
+                  input,
+                  maxLines: 1,
+                  textAlign: TextAlign.right,
+                  style: TextStyle(
+                    color: bgGeneral == const Color.fromARGB(255, 255, 255, 255) ? Colors.black : Colors.white,
+                    fontSize: 40,
+                  ),
+                  overflow: TextOverflow.fade,
                 ),
-                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
@@ -112,15 +116,20 @@ class _MyAppState extends State<MyApp> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
+                child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                reverse: true,
                 child: Text(
                   output,
                   maxLines: 1,
                   textAlign: TextAlign.right,
                   style: TextStyle(
                     color: bgGeneral == const Color.fromARGB(255, 255, 255, 255) ? Colors.black : Colors.white,
-                    fontSize: 50,
+                    fontSize: 25,
                   ),
+                  overflow: TextOverflow.fade,
                 ),
+              ),
               ),
             ],
           ),
