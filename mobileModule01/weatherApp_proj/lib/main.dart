@@ -60,7 +60,7 @@ class _HomeState extends State<Home> {
                       color: const Color.fromARGB(255, 255, 255, 255),
                       onPressed: () {
                         setState(() {
-                          currentSearch = '';
+                          currentSearch = 'Geolocation';
                         });
                       },
                     ),
