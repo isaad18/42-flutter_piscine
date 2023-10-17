@@ -1,8 +1,12 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'customSearch.dart';
 import 'currentlyTab.dart';
 import 'todayTab.dart';
 import 'weeklyTab.dart';
+import 'package:geolocator/geolocator.dart';
 
 void main() => runApp(const Home());
 
@@ -15,6 +19,22 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String currentSearch = '';
+  bool locationPermission = false;
+
+  @override
+  void initState() {
+    super.initState();
+    checkLocationPermission();
+  }
+
+  void checkLocationPermission() async {
+    PermissionStatus locationStatus = await Permission.location.status;
+    if (locationStatus.isGranted) {
+      setState(() {
+        locationPermission = true;
+      });
+    }
+  }
 
   void changeSearch(String newSearch) {
     setState(() {
@@ -58,10 +78,25 @@ class _HomeState extends State<Home> {
                     child: IconButton(
                       icon: const Icon(Icons.my_location_outlined),
                       color: const Color.fromARGB(255, 255, 255, 255),
-                      onPressed: () {
-                        setState(() {
-                          currentSearch = 'Geolocation';
-                        });
+                      onPressed: ()async {
+                        PermissionStatus microphoneStatus = await Permission.location.request();
+                        if (microphoneStatus.isGranted) {
+                          Position position = await Geolocator.getCurrentPosition(
+                            desiredAccuracy: LocationAccuracy.high,
+                          );
+                          double latitude = position.latitude;
+                          double longitude = position.longitude;
+
+                          setState(() {
+                            currentSearch = '$latitude $longitude';
+                            locationPermission = true;
+                          });
+                        } else {
+                          setState(() {
+                            currentSearch = '';
+                            locationPermission = false;
+                          });
+                        }
                       },
                     ),
                   )
@@ -82,9 +117,9 @@ class _HomeState extends State<Home> {
           ),
           body: TabBarView(
             children: [
-              CurrentlyView(currentSearch),
-              TodayView(currentSearch),
-              WeeklyView(currentSearch),
+              CurrentlyView(currentSearch, locationPermission),
+              TodayView(currentSearch, locationPermission),
+              WeeklyView(currentSearch, locationPermission),
             ],
           ),
         ),

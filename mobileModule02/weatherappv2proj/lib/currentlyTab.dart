@@ -33,7 +33,8 @@ class _CurrentlyState extends State<Currently> {
 
 class CurrentlyView extends StatefulWidget {
   final String text;
-  const CurrentlyView(this.text, {super.key});
+  final bool locationPermission;
+  const CurrentlyView(this.text, this.locationPermission, {super.key});
 
   @override
   State<CurrentlyView> createState() => _CurrentlyViewState();
@@ -41,11 +42,19 @@ class CurrentlyView extends StatefulWidget {
 
 class _CurrentlyViewState extends State<CurrentlyView> {
 
+  String testLocation() {
+    if (widget.locationPermission == false) {
+      return 'Geolocation is not available';
+    } else {
+      return 'Currently ${widget.text}';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        'Currently ${widget.text}',
+        testLocation(),
         style: const TextStyle(
           color: Color.fromARGB(255, 255, 255, 255),
           fontSize: 30,

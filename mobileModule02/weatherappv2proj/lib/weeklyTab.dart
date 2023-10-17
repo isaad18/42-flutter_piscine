@@ -33,18 +33,27 @@ class _WeeklyState extends State<Weekly> {
 
 class WeeklyView extends StatefulWidget {
   final String text;
-  const WeeklyView(this.text, {super.key});
+  final bool locationPermission;
+  const WeeklyView(this.text, this.locationPermission, {super.key});
 
   @override
   State<WeeklyView> createState() => _WeeklyViewState();
 }
 
 class _WeeklyViewState extends State<WeeklyView> {
+  String testLocation() {
+    if (widget.locationPermission == false) {
+      return 'Geolocation is not available';
+    } else {
+      return 'Weekly ${widget.text}';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        'Weekly ${widget.text}',
+        testLocation(),
         style: const TextStyle(
           color: Color.fromARGB(255, 255, 255, 255),
           fontSize: 30,
